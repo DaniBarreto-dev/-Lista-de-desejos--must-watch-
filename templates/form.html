@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Título *</label>
+        <input type="text" name="titulo" class="form-control"
+               value="{{ registro['titulo'] if registro else '' }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tipo *</label>
+        <select name="tipo" class="form-control" required>
+            <option value="">Selecione</option>
+            {% for t in ['Filme', 'Série', 'Jogo', 'Livro', 'Outro'] %}
+                <option value="{{ t }}"
+                {% if registro and registro['tipo'] == t %}selected{% endif %}>
+                    {{ t }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Indicado por</label>
+        <input type="text" name="indicado_por" class="form-control"
+               value="{{ registro['indicado_por'] if registro else '' }}">
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar</a>
+</form>
+{% endblock %}
